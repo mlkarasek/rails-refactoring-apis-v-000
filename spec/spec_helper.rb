@@ -9,10 +9,7 @@ require 'webmock/rspec'
 require 'rack_session_access/capybara'
 
 RSpec.configure do |config|
-  config.before(:each) do
-    stub_request(:get, /api.github.com/)
-    with(headers: {'Accept' =>'*/*', 'User-Agent' => 'Ruby'}).
-    to_return(status: 200, body: "stubbed response", headers: {})
+  config.include Capybara::DSL
 
   config.before(:each) do
     stub_request(:get, "https://api.github.com/user/repos").
@@ -36,3 +33,11 @@ RSpec.configure do |config|
 end
 
 WebMock.disable_net_connect!(allow_localhost: true)
+
+RSpec.configure do |config|
+  config.before(:each) do
+    stub_request(:get, /api.github.com/).
+      with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+      to_return(status: 200, body: "stubbed response", headers: {})
+  end
+end
