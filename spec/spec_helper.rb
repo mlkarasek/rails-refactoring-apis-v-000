@@ -6,6 +6,7 @@ require 'capybara/dsl'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'webmock/rspec'
+WebMock.disable_net_connect!(allow_localhost: true)
 require 'rack_session_access/capybara'
 
 RSpec.configure do |config|
