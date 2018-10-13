@@ -9,7 +9,7 @@ require 'webmock/rspec'
 require 'rack_session_access/capybara'
 
 RSpec.configure do |config|
-  config.before(:each) do 
+  config.before(:each) do
     stub_request(:get, /api.github.com/)
     with(headers: {'Accept' =>'*/*', 'User-Agent' => 'Ruby'}).
     to_return(status: 200, body: "stubbed response", headers: {})
